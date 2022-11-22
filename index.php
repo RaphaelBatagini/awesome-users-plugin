@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Plugin Name: Awesome Users Plugin
  * Plugin URI: https://github.com/RaphaelBatagini/awesome-users-plugin
@@ -10,3 +11,18 @@
  * Text Domain: awesome-users
  * Domain Path: /languages/
  */
+
+// -*- coding: utf-8 -*-
+
+declare(strict_types=1);
+
+namespace RaphaelBatagini\AwesomeUsersPlugin;
+
+defined('ABSPATH') || exit;
+
+require_once(__DIR__ . '/vendor/autoload.php');
+
+add_action('after_setup_theme', static function () {
+    $core = AwesomeUsers::instance();
+    $core->init();
+});

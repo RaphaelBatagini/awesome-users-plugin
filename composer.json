@@ -16,5 +16,10 @@
     "minimum-stability": "stable",
     "require-dev": {
         "inpsyde/php-coding-standards": "^1.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     }
 }
