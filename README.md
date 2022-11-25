@@ -21,5 +21,5 @@ $ vendor/bin/phpcs
 
 ### Executing unit tests
 ```sh
-$ vendor/bin/phpunit tests/
+$ vendor/bin/phpunit
 ```
