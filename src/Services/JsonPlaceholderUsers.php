@@ -17,21 +17,32 @@ class JsonPlaceholderUsers implements IUserService
         $this->sourceUrl = 'https://jsonplaceholder.typicode.com/users';
     }
 
-    public function list(int $page = 1, int $pageLength = 10): array
+    public function list(): array
     {
-        return $this->retrieveUsersFromSource();
+        return $this->retrieveUsersListFromSource();
     }
 
     public function detail(int $userId): object
     {
-        return $this->retrieveUsersFromSource(1);
+        return $this->retrieveUserDetailsFromSource(1);
     }
 
-    private function retrieveUsersFromSource(string | int $path = null): array | object
+    private function retrieveUsersListFromSource(): array
     {
         $curlHandle = curl_init();
         curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curlHandle, CURLOPT_URL, "{$this->sourceUrl}/{$path}");
+        curl_setopt($curlHandle, CURLOPT_URL, $this->sourceUrl);
+        $result = curl_exec($curlHandle);
+        curl_close($curlHandle);
+
+        return json_decode($result);
+    }
+
+    private function retrieveUserDetailsFromSource(int $id): object
+    {
+        $curlHandle = curl_init();
+        curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curlHandle, CURLOPT_URL, "{$this->sourceUrl}/{$id}");
         $result = curl_exec($curlHandle);
         curl_close($curlHandle);
 
