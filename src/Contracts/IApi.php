@@ -6,6 +6,7 @@ declare(strict_types=1);
 
 namespace RaphaelBatagini\AwesomeUsersPlugin\Contracts;
 
-interface IApi {
+interface IApi
+{
     public function registerEndpoints(): void;
 }
