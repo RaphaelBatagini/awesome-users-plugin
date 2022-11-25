@@ -3,6 +3,9 @@
 ## Plugin usage
 
 ## Technologies
+- PHP >= 7.4
+- Composer 2
+- PHPUnit 9.5
 
 ## API Endpoints
 This plugin expose two API endpoints to deal with users. They are:
@@ -11,11 +14,16 @@ This plugin expose two API endpoints to deal with users. They are:
 
 ## Interacting with plugin code
 
-1. Checking code standards:
+### Checking code standards
 ```sh
 $ vendor/bin/phpcs --standard="Inpsyde" <path>
 ```
 Where <path> is at least one file or directory to check, e.g.:
 ```sh
 $ vendor/bin/phpcs --standard="Inpsyde" ./src/ ./my-plugin.php
+```
+
+### Executing unit tests
+```sh
+$ vendor/bin/phpunit tests/
 ```
