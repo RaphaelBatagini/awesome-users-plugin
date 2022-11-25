@@ -16,11 +16,7 @@ This plugin expose two API endpoints to deal with users. They are:
 
 ### Checking code standards
 ```sh
-$ vendor/bin/phpcs --standard="Inpsyde" <path>
-```
-Where <path> is at least one file or directory to check, e.g.:
-```sh
-$ vendor/bin/phpcs --standard="Inpsyde" ./src/ ./my-plugin.php
+$ vendor/bin/phpcs
 ```
 
 ### Executing unit tests
