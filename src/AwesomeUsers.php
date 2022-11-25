@@ -6,6 +6,9 @@ declare(strict_types=1);
 
 namespace RaphaelBatagini\AwesomeUsersPlugin;
 
+use RaphaelBatagini\AwesomeUsersPlugin\APIs\Users;
+use RaphaelBatagini\AwesomeUsersPlugin\Services\JsonPlaceholderUsers;
+
 final class AwesomeUsers
 {
     private function __construct()
@@ -24,6 +27,8 @@ final class AwesomeUsers
 
     public function init()
     {
-        // TODO: add plugin start up requirements
+        $usersService = new JsonPlaceholderUsers();
+        $usersApi = new Users($usersService);
+        $usersApi->registerEndpoints();
     }
 }
