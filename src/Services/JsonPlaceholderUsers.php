@@ -7,6 +7,11 @@ declare(strict_types=1);
 namespace RaphaelBatagini\AwesomeUsersPlugin\Services;
 
 use RaphaelBatagini\AwesomeUsersPlugin\Contracts\IUserService;
+use RaphaelBatagini\AwesomeUsersPlugin\DTOs\User;
+use RaphaelBatagini\AwesomeUsersPlugin\Collections\Users as UsersCollection;
+use RaphaelBatagini\AwesomeUsersPlugin\DTOs\Address;
+use RaphaelBatagini\AwesomeUsersPlugin\DTOs\Company;
+use RaphaelBatagini\AwesomeUsersPlugin\DTOs\Geolocalization;
 
 class JsonPlaceholderUsers implements IUserService
 {
@@ -17,14 +22,22 @@ class JsonPlaceholderUsers implements IUserService
         $this->sourceUrl = 'https://jsonplaceholder.typicode.com/users';
     }
 
-    public function list(): array
+    public function list(): UsersCollection
     {
-        return $this->retrieveUsersListFromSource();
+        $apiUsers = $this->retrieveUsersListFromSource();
+
+        $users = array_map(function (object $apiUser): User {
+            return $this->generateUserDto($apiUser);
+        }, $apiUsers);
+
+        return new UsersCollection($users);
     }
 
-    public function detail(int $userId): object
+    public function detail(int $userId): User
     {
-        return $this->retrieveUserDetailsFromSource(1);
+        $apiUser = $this->retrieveUserDetailsFromSource(1);
+
+        return $this->generateUserDto($apiUser);
     }
 
     private function retrieveUsersListFromSource(): array
@@ -47,5 +60,37 @@ class JsonPlaceholderUsers implements IUserService
         curl_close($curlHandle);
 
         return json_decode($result);
+    }
+
+    private function generateUserDto(object $user): User
+    {
+        $geo = new Geolocalization(
+            $user->address->geo->lat,
+            $user->address->geo->lng
+        );
+
+        $address = new Address(
+            $user->address->street,
+            $user->address->suite,
+            $user->address->city,
+            $user->address->zipcode,
+            $geo
+        );
+
+        $company = new Company(
+            $user->company->name,
+            $user->company->catchPhrase
+        );
+
+        return new User(
+            $user->id,
+            $user->name,
+            $user->username,
+            $user->email,
+            $address,
+            $user->phone,
+            $user->website,
+            $company
+        );
     }
 }

@@ -21,12 +21,12 @@ final class Users implements IApi
 
     public function handleList(): array
     {
-        return $this->service->list();
+        return $this->service->list()->users();
     }
 
-    public function handleDetails(WP_REST_Request $request): object
+    public function handleDetails(WP_REST_Request $request): array
     {
-        return $this->service->detail(intval($request['id']));
+        return $this->service->detail(intval($request['id']))->toArray();
     }
 
     public function registerEndpoints(): void
