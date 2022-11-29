@@ -15,7 +15,7 @@ class Users extends Collection
         parent::__construct($items);
     }
 
-    public function users(): array
+    public function toArray(): array
     {
         $iterator = parent::getIterator();
 
