@@ -35,7 +35,7 @@ class JsonPlaceholderUsers implements IUserService
 
     public function detail(int $userId): User
     {
-        $apiUser = $this->retrieveUserDetailsFromSource(1);
+        $apiUser = $this->retrieveUserDetailsFromSource($userId);
 
         return $this->generateUserDto($apiUser);
     }
