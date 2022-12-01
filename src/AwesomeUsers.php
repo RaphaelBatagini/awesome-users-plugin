@@ -44,6 +44,23 @@ final class AwesomeUsers
 
     private function createUsersPage(): void
     {
+        add_action('wp_enqueue_scripts', static function () {
+            $scriptPath = dirname(__FILE__, 2) . '/dist/main.js';
+            $scriptAssetPath = dirname(__FILE__, 2) . '/dist/main.asset.php';
+            $scriptAsset = file_exists($scriptAssetPath)
+                ? require($scriptAssetPath)
+                : ['dependencies' => [], 'version' => filemtime($scriptPath)];
+            $scriptUrl = plugins_url('dist/main.js', dirname(__FILE__));
+
+            wp_enqueue_script(
+                'awesome_users_page_script',
+                $scriptUrl,
+                $scriptAsset['dependencies'],
+                $scriptAsset['version'],
+                true,
+            );
+        });
+
         new VirtualPage(
             self::AWESOME_USERS_PAGE_SLUG,
             self::AWESOME_USERS_PAGE_TITLE,
