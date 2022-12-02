@@ -9,24 +9,27 @@ namespace RaphaelBatagini\AwesomeUsersPlugin\Services;
 use RaphaelBatagini\AwesomeUsersPlugin\Contracts\IUserService;
 use RaphaelBatagini\AwesomeUsersPlugin\DTOs\User;
 use RaphaelBatagini\AwesomeUsersPlugin\Collections\Users as UsersCollection;
+use RaphaelBatagini\AwesomeUsersPlugin\Contracts\IHttpClient;
 use RaphaelBatagini\AwesomeUsersPlugin\DTOs\Address;
 use RaphaelBatagini\AwesomeUsersPlugin\DTOs\Company;
 use RaphaelBatagini\AwesomeUsersPlugin\DTOs\Geolocalization;
 
 class JsonPlaceholderUsers implements IUserService
 {
+    private $httpClient;
     private $sourceUrl;
 
-    public function __construct()
+    public function __construct(IHttpClient $httpClient)
     {
+        $this->httpClient = $httpClient;
         $this->sourceUrl = 'https://jsonplaceholder.typicode.com/users';
     }
 
     public function list(): UsersCollection
     {
-        $apiUsers = $this->retrieveUsersListFromSource();
+        $apiUsers = $this->httpClient->get($this->sourceUrl);
 
-        $users = array_map(function (object $apiUser): User {
+        $users = array_map(function (array $apiUser): User {
             return $this->generateUserDto($apiUser);
         }, $apiUsers);
 
@@ -35,61 +38,38 @@ class JsonPlaceholderUsers implements IUserService
 
     public function detail(int $userId): User
     {
-        $apiUser = $this->retrieveUserDetailsFromSource($userId);
-
+        $apiUser = $this->httpClient->get("{$this->sourceUrl}/{$userId}");
         return $this->generateUserDto($apiUser);
     }
 
-    private function retrieveUsersListFromSource(): array
-    {
-        $curlHandle = curl_init();
-        curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curlHandle, CURLOPT_URL, $this->sourceUrl);
-        $result = curl_exec($curlHandle);
-        curl_close($curlHandle);
-
-        return json_decode($result);
-    }
-
-    private function retrieveUserDetailsFromSource(int $id): object
-    {
-        $curlHandle = curl_init();
-        curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curlHandle, CURLOPT_URL, "{$this->sourceUrl}/{$id}");
-        $result = curl_exec($curlHandle);
-        curl_close($curlHandle);
-
-        return json_decode($result);
-    }
-
-    private function generateUserDto(object $user): User
+    private function generateUserDto(array $user): User
     {
         $geo = new Geolocalization(
-            $user->address->geo->lat,
-            $user->address->geo->lng
+            $user['address']['geo']['lat'],
+            $user['address']['geo']['lng'],
         );
 
         $address = new Address(
-            $user->address->street,
-            $user->address->suite,
-            $user->address->city,
-            $user->address->zipcode,
+            $user['address']['street'],
+            $user['address']['suite'],
+            $user['address']['city'],
+            $user['address']['zipcode'],
             $geo
         );
 
         $company = new Company(
-            $user->company->name,
-            $user->company->catchPhrase
+            $user['company']['name'],
+            $user['company']['catchPhrase'],
         );
 
         return new User(
-            $user->id,
-            $user->name,
-            $user->username,
-            $user->email,
+            $user['id'],
+            $user['name'],
+            $user['username'],
+            $user['email'],
             $address,
-            $user->phone,
-            $user->website,
+            $user['phone'],
+            $user['website'],
             $company
         );
     }
