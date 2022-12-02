@@ -7,11 +7,9 @@ declare(strict_types=1);
 namespace RaphaelBatagini\AwesomeUsersPlugin;
 
 use RaphaelBatagini\AwesomeUsersPlugin\APIs\Users;
-use RaphaelBatagini\AwesomeUsersPlugin\Services\CurlHttpClient;
 use RaphaelBatagini\AwesomeUsersPlugin\Services\JsonPlaceholderUsers;
 use RaphaelBatagini\AwesomeUsersPlugin\Services\VirtualPage;
 use RaphaelBatagini\AwesomeUsersPlugin\Services\WpHttpClient;
-use WP_Http;
 
 final class AwesomeUsers
 {
@@ -40,7 +38,7 @@ final class AwesomeUsers
 
     private function initUsersApi(): void
     {
-        $usersService = new JsonPlaceholderUsers(new CurlHttpClient());
+        $usersService = new JsonPlaceholderUsers(new WpHttpClient());
         $usersApi = new Users($usersService);
         $usersApi->registerEndpoints();
     }
