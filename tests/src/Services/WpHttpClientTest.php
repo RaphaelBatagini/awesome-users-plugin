@@ -21,12 +21,12 @@ class WpHttpClientTest extends TestCase
             ->andReturn([
                 'body' => '{ "property": "value" }',
             ]);
-    
+
         $client = new WpHttpClient($mock);
         $response = $client->get('https://someurl.com');
 
         $this->assertEquals([
-            'property' => 'value'
+            'property' => 'value',
         ], $response);
     }
 
@@ -41,7 +41,7 @@ class WpHttpClientTest extends TestCase
         $mock->shouldReceive('get')
             ->times(1)
             ->andReturn($response);
-        
+
         $client = new WpHttpClient($mock);
         $client->get('https://someurl.com');
     }
@@ -56,7 +56,7 @@ class WpHttpClientTest extends TestCase
             ->andReturn([
                 'body' => '{ property: "value" }',
             ]);
-        
+
         $client = new WpHttpClient($mock);
         $client->get('https://someurl.com');
     }

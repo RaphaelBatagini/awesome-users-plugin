@@ -17,7 +17,7 @@ class WpHttpClient implements IHttpClient
 
     /**
      * @param WP_Http $wpHttp to make the http requests
-     * 
+     *
      * @return self
      */
     public function __construct(WP_Http $wpHttp)
@@ -27,9 +27,9 @@ class WpHttpClient implements IHttpClient
 
     /**
      * Handle get requests
-     * 
+     *
      * @param string $url
-     * 
+     *
      * @return array
      * @throws HttpException if request fail
      */
@@ -42,8 +42,9 @@ class WpHttpClient implements IHttpClient
         }
 
         $decodedBody = json_decode($response['body'], true);
+        $jsonLastError = json_last_error();
 
-        if ($jsonLastError = json_last_error()) {
+        if ($jsonLastError) {
             throw new JsonDecodeException($jsonLastError);
         }
 

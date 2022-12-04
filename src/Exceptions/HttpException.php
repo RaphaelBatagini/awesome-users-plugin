@@ -6,4 +6,6 @@ declare(strict_types=1);
 
 namespace RaphaelBatagini\AwesomeUsersPlugin\Exceptions;
 
-class HttpException extends \Exception {}
+class HttpException extends \Exception
+{
+}

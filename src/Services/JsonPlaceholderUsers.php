@@ -21,7 +21,7 @@ class JsonPlaceholderUsers implements IUserService
 
     /**
      * @param IHttpClient $httpClient client responsible for the http requests
-     * 
+     *
      * @return self
      */
     public function __construct(IHttpClient $httpClient)
@@ -32,7 +32,7 @@ class JsonPlaceholderUsers implements IUserService
 
     /**
      * Retrieve Users List from JsonPlaceholder API
-     * 
+     *
      * @return UsersCollection
      * @throws \Exception
      */
@@ -49,7 +49,7 @@ class JsonPlaceholderUsers implements IUserService
 
     /**
      * Retrieve User Details from JsonPlaceholder API
-     * 
+     *
      * @return User
      * @throws \Exception
      */
@@ -61,9 +61,9 @@ class JsonPlaceholderUsers implements IUserService
 
     /**
      * Convert an user array into an user DTO
-     * 
+     *
      * @param array $user
-     * 
+     *
      * @return User
      * @throws \Exception
      */

@@ -13,25 +13,25 @@ class JsonDecodeException extends \Exception
         switch ($jsonErrorCode) {
             case JSON_ERROR_NONE:
                 $message = 'No errors';
-            break;
+                break;
             case JSON_ERROR_DEPTH:
                 $message = 'Maximum stack depth exceeded';
-            break;
+                break;
             case JSON_ERROR_STATE_MISMATCH:
                 $message = 'Underflow or the modes mismatch';
-            break;
+                break;
             case JSON_ERROR_CTRL_CHAR:
                 $message = 'Unexpected control character found';
-            break;
+                break;
             case JSON_ERROR_SYNTAX:
                 $message = 'Syntax error, malformed JSON';
-            break;
+                break;
             case JSON_ERROR_UTF8:
                 $message = 'Malformed UTF-8 characters, possibly incorrectly encoded';
-            break;
+                break;
             default:
                 $message = 'Unknown error';
-            break;
+                break;
         }
 
         parent::__construct("Failed to decode JSON with message: $message");

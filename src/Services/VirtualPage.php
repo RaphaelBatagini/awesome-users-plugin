@@ -18,7 +18,7 @@ class VirtualPage
      * @param string $slug the virtual page slug
      * @param string $slug the virtual page title
      * @param string $slug the file path to virtual page template
-     * 
+     *
      * @return self
      */
     public function __construct(string $slug, string $title, string $templatePath)
@@ -30,6 +30,8 @@ class VirtualPage
 
     /**
      * Add init action
+     *
+     * @return void
      */
     public function init(): void
     {
@@ -38,7 +40,7 @@ class VirtualPage
 
     /**
      * Register WP Filters
-     * 
+     *
      * @return void
      */
     public function registerFilters(): void
@@ -50,7 +52,7 @@ class VirtualPage
 
     /**
      * Retrieve current page slug
-     * 
+     *
      * @return string current page slug
      */
     private function getCurrentPageSlug(): string
@@ -67,7 +69,7 @@ class VirtualPage
 
     /**
      * Retrieve current URI
-     * 
+     *
      * @return string current URI escaped and unslashed
      */
     private function getCurrentRequestUri(): string
@@ -81,7 +83,7 @@ class VirtualPage
 
     /**
      * Add virtual page to the loop
-     * 
+     *
      * @param WP_Post[] $posts
      * @param WP_Query $query
      *
@@ -175,7 +177,7 @@ class VirtualPage
 
     /**
      * Get template content as string
-     * 
+     *
      * @return string template content
      */
     private function templateToString(): string

@@ -1,6 +1,7 @@
 <?php
 
 // -*- coding: utf-8 -*-
+// phpcs:disable Inpsyde.CodeQuality.NoAccessors.NoSetter
 
 declare(strict_types=1);
 
@@ -30,14 +31,14 @@ class JsonPlaceholderUsersTest extends TestCase
                 "zipcode" => "92998-3874",
                 "geo" => [
                     "lat" => "-37.3159",
-                    "lng" => "81.1496"
-                ]
+                    "lng" => "81.1496",
+                ],
             ],
             "phone" => "1-770-736-8031 x56442",
             "website" => "hildegard.org",
             "company" => [
                 "name" => "Romaguera-Crona",
-                "catchPhrase" => "Multi-layered client-server neural-net"
+                "catchPhrase" => "Multi-layered client-server neural-net",
             ],
         ];
     }
@@ -47,7 +48,7 @@ class JsonPlaceholderUsersTest extends TestCase
         $stub = $this->createStub(WpHttpClient::class);
         $stub->method('get')
             ->willReturn([self::$userDataFromHttpClient]);
-        
+
         $usersService = new JsonPlaceholderUsers($stub);
         $usersList = $usersService->list();
 
@@ -63,7 +64,7 @@ class JsonPlaceholderUsersTest extends TestCase
         $stub = $this->createStub(WpHttpClient::class);
         $stub->method('get')
             ->willThrowException($exception);
-        
+
         $usersService = new JsonPlaceholderUsers($stub);
         $usersList = $usersService->list();
     }
@@ -87,7 +88,7 @@ class JsonPlaceholderUsersTest extends TestCase
         $stub = $this->createStub(WpHttpClient::class);
         $stub->method('get')
             ->willThrowException($exception);
-        
+
         $usersService = new JsonPlaceholderUsers($stub);
         $usersService->detail(1);
     }
