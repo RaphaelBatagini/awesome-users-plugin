@@ -25,6 +25,11 @@ class JsonPlaceholderUsers implements IUserService
         $this->sourceUrl = 'https://jsonplaceholder.typicode.com/users';
     }
 
+    /**
+     * Retrieve Users List from JsonPlaceholder API
+     * @return UsersCollection
+     * @throws \Exception
+     */
     public function list(): UsersCollection
     {
         $apiUsers = $this->httpClient->get($this->sourceUrl);
@@ -36,6 +41,11 @@ class JsonPlaceholderUsers implements IUserService
         return new UsersCollection($users);
     }
 
+    /**
+     * Retrieve User Details from JsonPlaceholder API
+     * @return User
+     * @throws \Exception
+     */
     public function detail(int $userId): User
     {
         $apiUser = $this->httpClient->get("{$this->sourceUrl}/{$userId}");
