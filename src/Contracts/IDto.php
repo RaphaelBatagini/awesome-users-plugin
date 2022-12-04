@@ -8,5 +8,10 @@ namespace RaphaelBatagini\AwesomeUsersPlugin\Contracts;
 
 interface IDto
 {
+    /**
+     * Ensure all DTOs convert its properties to array
+     *
+     * @return array
+     */
     public function toArray(): array;
 }

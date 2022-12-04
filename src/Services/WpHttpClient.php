@@ -13,9 +13,15 @@ use WP_Http;
 
 class WpHttpClient implements IHttpClient
 {
-    private $httpTool;
+    /**
+     * An WP_Http to be wrapped
+     * @var WP_Http
+     */
+    private WP_Http $httpTool;
 
     /**
+     * Wrap an WP_Http class for better control over its returns
+     *
      * @param WP_Http $wpHttp to make the http requests
      *
      * @return self

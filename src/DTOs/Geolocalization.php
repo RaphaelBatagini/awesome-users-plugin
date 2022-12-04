@@ -8,7 +8,16 @@ namespace RaphaelBatagini\AwesomeUsersPlugin\DTOs;
 
 final class Geolocalization
 {
+    /**
+     * Latitude
+     * @var string
+     */
     private string $lat;
+
+    /**
+     * Longitude
+     * @var string
+     */
     private string $lng;
 
     /**

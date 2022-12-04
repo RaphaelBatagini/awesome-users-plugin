@@ -16,8 +16,17 @@ use RaphaelBatagini\AwesomeUsersPlugin\DTOs\Geolocalization;
 
 class JsonPlaceholderUsers implements IUserService
 {
-    private $httpClient;
-    private $sourceUrl;
+    /**
+     * Http Client to make requests to the jsonplaceholder.typicode.com API
+     * @var IHttpClient
+     */
+    private IHttpClient $httpClient;
+
+    /**
+     * jsonplaceholder.typicode.com api address
+     * @var string
+     */
+    private string $sourceUrl;
 
     /**
      * @param IHttpClient $httpClient client responsible for the http requests

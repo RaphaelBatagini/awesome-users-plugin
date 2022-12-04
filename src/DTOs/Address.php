@@ -10,10 +10,34 @@ use RaphaelBatagini\AwesomeUsersPlugin\Contracts\IDto;
 
 final class Address implements IDto
 {
+    /**
+     * Street
+     * @var string
+     */
     private string $street;
+
+    /**
+     * Suite
+     * @var string
+     */
     private string $suite;
+
+    /**
+     * City
+     * @var string
+     */
     private string $city;
+
+    /**
+     * Zipcode
+     * @var string
+     */
     private string $zipcode;
+
+    /**
+     * Geolocalization
+     * @var Geolocalization
+     */
     private Geolocalization $geo;
 
     /**

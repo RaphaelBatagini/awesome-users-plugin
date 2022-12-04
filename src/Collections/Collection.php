@@ -13,8 +13,11 @@ use IteratorAggregate;
 
 abstract class Collection implements ArrayAccess, Countable, IteratorAggregate
 {
-    protected $items;
-    protected $position;
+    /**
+     * Items list
+     * @var array
+     */
+    protected array $items;
 
     /**
      * Sets up object items
@@ -23,7 +26,6 @@ abstract class Collection implements ArrayAccess, Countable, IteratorAggregate
      */
     public function __construct(array $items = [])
     {
-        $this->position = 0;
         $this->items = $items;
     }
 

@@ -8,13 +8,52 @@ namespace RaphaelBatagini\AwesomeUsersPlugin\DTOs;
 
 final class User
 {
+    /**
+     * User identification
+     * @var int
+     */
     private int $id;
+
+    /**
+     * Name
+     * @var string
+     */
     private string $name;
+
+    /**
+     * Username/Login
+     * @var string
+     */
     private string $username;
+
+    /**
+     * E-mail
+     * @var string
+     */
     private string $email;
+
+    /**
+     * Adress object
+     * @var Address
+     */
     private Address $address;
+
+    /**
+     * Phone number
+     * @var string
+     */
     private string $phone;
+
+    /**
+     * Website
+     * @var string
+     */
     private string $website;
+
+    /**
+     * Company object
+     * @var Company
+     */
     private Company $company;
 
     /**

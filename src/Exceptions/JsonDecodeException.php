@@ -8,6 +8,13 @@ namespace RaphaelBatagini\AwesomeUsersPlugin\Exceptions;
 
 class JsonDecodeException extends \Exception
 {
+    /**
+     * Converts a Json Error Code into a readable exception
+     *
+     * @param int $jsonErrorCode
+     *
+     * @return UserCollection
+     */
     public function __construct(int $jsonErrorCode)
     {
         switch ($jsonErrorCode) {

@@ -8,7 +8,16 @@ namespace RaphaelBatagini\AwesomeUsersPlugin\DTOs;
 
 final class Company
 {
+    /**
+     * Name
+     * @var string
+     */
     private string $name;
+
+    /**
+     * Catch Phrase
+     * @var string
+     */
     private string $catchPhrase;
 
     /**

@@ -8,5 +8,10 @@ namespace RaphaelBatagini\AwesomeUsersPlugin\Contracts;
 
 interface IApi
 {
+    /**
+     * Ensure all API classes register its endpoints
+     *
+     * @return void
+     */
     public function registerEndpoints(): void;
 }

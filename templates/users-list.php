@@ -5,4 +5,6 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 
-<div id="awesome-users-plugin-app"><?php echo __('Loading...', 'awesome-users') ?></div>
+<div id="awesome-users-plugin-app">
+    <?php echo __('Loading...', 'awesome-users') ?>
+</div>

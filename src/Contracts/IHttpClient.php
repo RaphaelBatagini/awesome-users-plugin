@@ -8,5 +8,10 @@ namespace RaphaelBatagini\AwesomeUsersPlugin\Contracts;
 
 interface IHttpClient
 {
+    /**
+     * Ensure all HTTP Clients can make get requests
+     *
+     * @return array
+     */
     public function get(string $url): array;
 }

@@ -8,8 +8,22 @@ namespace RaphaelBatagini\AwesomeUsersPlugin\Services;
 
 class VirtualPage
 {
+    /**
+     * The virtual page slug
+     * @var string
+     */
     private string $pageSlug;
+
+    /**
+     * The virtual page title
+     * @var string
+     */
     private string $pageTitle;
+
+    /**
+     * The virtual page template path
+     * @var string
+     */
     private string $pageTemplate;
 
     /**

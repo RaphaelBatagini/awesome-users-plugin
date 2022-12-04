@@ -13,16 +13,32 @@ use RaphaelBatagini\AwesomeUsersPlugin\Services\WpHttpClient;
 
 final class AwesomeUsers
 {
+    /**
+     * The slug to be used in the page to list users
+     */
     private const AWESOME_USERS_PAGE_SLUG = 'my-awesome-users';
-    private const AWESOME_USERS_PAGE_TITLE = 'Awesome Users';
-    private static $instance;
 
+    /**
+     * The title to be used in the page to list users
+     */
+    private const AWESOME_USERS_PAGE_TITLE = 'Awesome Users';
+
+    /**
+     * Hold the singleton instance
+     */
+    private static self $instance;
+
+    /**
+     * Private constructor to limit instance access
+     *
+     * @return self
+     */
     private function __construct()
     {
     }
 
     /**
-     * Retrieves a class instance
+     * Retrieves the class instance
      *
      * @return self
      */
