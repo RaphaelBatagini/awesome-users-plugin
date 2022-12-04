@@ -38,7 +38,7 @@ final class AwesomeUsers
 
     private function initUsersApi(): void
     {
-        $usersService = new JsonPlaceholderUsers(new WpHttpClient());
+        $usersService = new JsonPlaceholderUsers(new WpHttpClient(new \WP_Http()));
         $usersApi = new Users($usersService);
         $usersApi->registerEndpoints();
     }

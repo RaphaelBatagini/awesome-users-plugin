@@ -8,15 +8,16 @@ namespace RaphaelBatagini\AwesomeUsersPlugin\Services;
 
 use RaphaelBatagini\AwesomeUsersPlugin\Exceptions\HttpException;
 use RaphaelBatagini\AwesomeUsersPlugin\Contracts\IHttpClient;
+use RaphaelBatagini\AwesomeUsersPlugin\Exceptions\JsonDecodeException;
 use WP_Http;
 
 class WpHttpClient implements IHttpClient
 {
     private $httpTool;
 
-    public function __construct()
+    public function __construct(WP_Http $wpHttp)
     {
-        $this->httpTool = new WP_Http();
+        $this->httpTool = $wpHttp;
     }
 
     /**
@@ -33,6 +34,12 @@ class WpHttpClient implements IHttpClient
             throw new HttpException($response->errors['http_request_failed'][0]);
         }
 
-        return json_decode($response['body'], true);
+        $decodedBody = json_decode($response['body'], true);
+
+        if ($jsonLastError = json_last_error()) {
+            throw new JsonDecodeException($jsonLastError);
+        }
+
+        return $decodedBody;
     }
 }
