@@ -15,6 +15,11 @@ class WpHttpClient implements IHttpClient
 {
     private $httpTool;
 
+    /**
+     * @param WP_Http $wpHttp to make the http requests
+     * 
+     * @return self
+     */
     public function __construct(WP_Http $wpHttp)
     {
         $this->httpTool = $wpHttp;
@@ -22,7 +27,9 @@ class WpHttpClient implements IHttpClient
 
     /**
      * Handle get requests
+     * 
      * @param string $url
+     * 
      * @return array
      * @throws HttpException if request fail
      */

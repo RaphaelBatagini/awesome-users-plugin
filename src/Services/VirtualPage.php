@@ -14,25 +14,45 @@ class VirtualPage
     private string $pageTitle;
     private string $pageTemplate;
 
+    /**
+     * @param string $slug the virtual page slug
+     * @param string $slug the virtual page title
+     * @param string $slug the file path to virtual page template
+     * 
+     * @return self
+     */
     public function __construct(string $slug, string $title, string $templatePath)
     {
         $this->pageSlug = $slug;
         $this->pageTitle = $title;
         $this->pageTemplate = $templatePath;
-
-        add_action('init', [$this, 'init']);
     }
 
     /**
-     * Hook to add the virtual page
+     * Add init action
      */
     public function init(): void
+    {
+        add_action('init', [$this, 'registerFilters']);
+    }
+
+    /**
+     * Register WP Filters
+     * 
+     * @return void
+     */
+    public function registerFilters(): void
     {
         if ($this->getCurrentPageSlug() === $this->pageSlug) {
             add_filter('the_posts', [$this, 'createPage'], 10, 2);
         }
     }
 
+    /**
+     * Retrieve current page slug
+     * 
+     * @return string current page slug
+     */
     private function getCurrentPageSlug(): string
     {
         $requestUri = $this->getCurrentRequestUri();
@@ -45,6 +65,11 @@ class VirtualPage
         return isset($params['page_id']) ? $params['page_id'] : false;
     }
 
+    /**
+     * Retrieve current URI
+     * 
+     * @return string current URI escaped and unslashed
+     */
     private function getCurrentRequestUri(): string
     {
         if (empty($_SERVER['REQUEST_URI'])) {
@@ -55,9 +80,10 @@ class VirtualPage
     }
 
     /**
-     * @param $posts
-     * @param $query
-     * The virtual page filter
+     * Add virtual page to the loop
+     * 
+     * @param WP_Post[] $posts
+     * @param WP_Query $query
      *
      * @return stdClass[]
      */
@@ -69,12 +95,10 @@ class VirtualPage
 
         $post = $this->createPostObject();
 
-        // set filter results
         $wpPost = new \WP_Post($post);
         $posts = [$wpPost];
         wp_cache_add($wpPost->ID, $wpPost, 'posts');
 
-        // reset wpQuery properties to simulate a found page
         $wpQuery->post = $wpPost;
         $wpQuery->posts = $posts;
         $wpQuery->queried_object = $wpPost;
@@ -116,7 +140,7 @@ class VirtualPage
     /**
      * Generate the post object dynamically
      *
-     * @return stdClass
+     * @return stdClass a WP_Post simulation
      */
     private function createPostObject(): stdClass
     {
@@ -149,6 +173,11 @@ class VirtualPage
         return $post;
     }
 
+    /**
+     * Get template content as string
+     * 
+     * @return string template content
+     */
     private function templateToString(): string
     {
         ob_start();
