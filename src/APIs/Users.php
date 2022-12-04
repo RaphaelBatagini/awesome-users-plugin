@@ -35,16 +35,23 @@ final class Users implements IApi
 
     public function registerEndpoints(): void
     {
-        add_action('rest_api_init', function () {
-            register_rest_route('awesome-users/v1', '/list', [
-                'methods' => 'GET',
-                'callback' => [ $this, 'handleList' ],
-            ]);
+        add_action('rest_api_init', [$this, 'registerListEndpoint']);
+        add_action('rest_api_init', [$this, 'registerDetailsEndpoint']);
+    }
 
-            register_rest_route('awesome-users/v1', '/details/(?P<id>\d+)', [
-                'methods' => 'GET',
-                'callback' => [ $this, 'handleDetails' ],
-            ]);
-        });
+    public function registerListEndpoint(): void
+    {
+        register_rest_route('awesome-users/v1', '/list', [
+            'methods' => 'GET',
+            'callback' => [ $this, 'handleList' ],
+        ]);
+    }
+
+    public function registerDetailsEndpoint(): void
+    {
+        register_rest_route('awesome-users/v1', '/details/(?P<id>\d+)', [
+            'methods' => 'GET',
+            'callback' => [ $this, 'handleDetails' ],
+        ]);
     }
 }
