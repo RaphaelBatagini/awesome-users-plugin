@@ -6,6 +6,9 @@
 - PHP >= 7.4
 - Composer 2
 - PHPUnit 9.5
+- Mockery
+- WP_Mock
+- FakerPHP
 - ReactJS
 - Webpack
 - Babel

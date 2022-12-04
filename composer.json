@@ -18,7 +18,8 @@
     "require-dev": {
         "inpsyde/php-coding-standards": "^1.0",
         "phpunit/phpunit": "^9.5",
-        "brain/monkey": "2.*"
+        "fakerphp/faker": "^1.20",
+        "10up/wp_mock": "dev-trunk"
     },
     "config": {
         "allow-plugins": {

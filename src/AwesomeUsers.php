@@ -15,6 +15,7 @@ final class AwesomeUsers
 {
     private const AWESOME_USERS_PAGE_SLUG = 'my-awesome-users';
     private const AWESOME_USERS_PAGE_TITLE = 'Awesome Users';
+    private static $instance;
 
     private function __construct()
     {
@@ -22,12 +23,11 @@ final class AwesomeUsers
 
     public static function instance(): self
     {
-        static $instance;
-        if ($instance) {
-            return $instance;
+        if (empty(self::$instance)) {
+            self::$instance = new self();
         }
 
-        return new self();
+        return self::$instance;
     }
 
     public function init()
@@ -62,10 +62,11 @@ final class AwesomeUsers
             );
         });
 
-        new VirtualPage(
+        $virtualPage = new VirtualPage(
             self::AWESOME_USERS_PAGE_SLUG,
             self::AWESOME_USERS_PAGE_TITLE,
             __DIR__ . '/../templates/users-list.php',
         );
+        $virtualPage->init();
     }
 }

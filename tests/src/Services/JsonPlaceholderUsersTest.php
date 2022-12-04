@@ -7,18 +7,19 @@ declare(strict_types=1);
 
 namespace RaphaelBatagini\AwesomeUsersPlugin\Tests\Services;
 
-use PHPUnit\Framework\TestCase;
 use RaphaelBatagini\AwesomeUsersPlugin\Services\JsonPlaceholderUsers;
 use RaphaelBatagini\AwesomeUsersPlugin\Collections\Users;
 use RaphaelBatagini\AwesomeUsersPlugin\DTOs\User;
 use RaphaelBatagini\AwesomeUsersPlugin\Services\WpHttpClient;
+use RaphaelBatagini\AwesomeUsersPlugin\Tests\AwesomeUsersTestCase;
 
-class JsonPlaceholderUsersTest extends TestCase
+class JsonPlaceholderUsersTest extends AwesomeUsersTestCase
 {
     private static $userDataFromHttpClient;
 
     public static function setUpBeforeClass(): void
     {
+        parent::setUpBeforeClass();
         self::$userDataFromHttpClient = [
             "id" => 1,
             "name" => "Leanne Graham",

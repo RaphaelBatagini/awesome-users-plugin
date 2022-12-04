@@ -16,8 +16,8 @@ class VirtualPage
 
     /**
      * @param string $slug the virtual page slug
-     * @param string $slug the virtual page title
-     * @param string $slug the file path to virtual page template
+     * @param string $title the virtual page title
+     * @param string $templatePath the file path to virtual page template
      *
      * @return self
      */
@@ -45,9 +45,34 @@ class VirtualPage
      */
     public function registerFilters(): void
     {
-        if ($this->getCurrentPageSlug() === $this->pageSlug) {
-            add_filter('the_posts', [$this, 'createPage'], 10, 2);
+        add_filter('the_posts', [$this, 'createPage'], 10, 2);
+    }
+
+    /**
+     * Create virtual page on the fly if current url matches the page slug
+     *
+     * @param \WP_Post[] $wpPosts
+     * @param \WP_Query $wpQuery
+     *
+     * @return \WP_Post[]
+     */
+    public function createPage(array $wpPosts, \WP_Query $wpQuery): array
+    {
+        if (
+            $this->getCurrentPageSlug() !== $this->pageSlug
+            || !empty($wpQuery->query['post_type'])
+        ) {
+            return $wpPosts;
         }
+
+        $wpPost = $this->createWpPostObject();
+        array_push($wpPosts, $wpPost);
+
+        wp_cache_add($wpPost->ID, $wpPost, 'posts');
+        
+        $this->insertWpPostInWpQuery($wpPost, $wpPosts, $wpQuery);
+
+        return $wpPosts;
     }
 
     /**
@@ -78,31 +103,22 @@ class VirtualPage
             return '';
         }
 
-        return esc_url_raw(wp_unslash($_SERVER['REQUEST_URI']));
+        return esc_url_raw(stripslashes($_SERVER['REQUEST_URI']));
     }
 
     /**
-     * Add virtual page to the loop
+     * Add post to WP_Query
      *
-     * @param WP_Post[] $posts
-     * @param WP_Query $query
+     * @param \WP_Post $wpPost
+     * @param \WP_Post[] $wpPosts
+     * @param \WP_Query $query
      *
-     * @return stdClass[]
+     * @return void
      */
-    public function createPage(array $posts, \WP_Query $wpQuery): array
+    private function insertWpPostInWpQuery(\WP_Post $wpPost, array $wpPosts, \WP_Query $wpQuery): void
     {
-        if (!empty($wpQuery->query['post_type'])) {
-            return $posts;
-        }
-
-        $post = $this->createPostObject();
-
-        $wpPost = new \WP_Post($post);
-        $posts = [$wpPost];
-        wp_cache_add($wpPost->ID, $wpPost, 'posts');
-
         $wpQuery->post = $wpPost;
-        $wpQuery->posts = $posts;
+        $wpQuery->posts = $wpPosts;
         $wpQuery->queried_object = $wpPost;
         $wpQuery->queried_object_id = $wpPost->ID;
         $wpQuery->found_posts = 1;
@@ -135,16 +151,14 @@ class VirtualPage
         $wpQuery->is_robots = false;
         $wpQuery->is_posts_page = false;
         $wpQuery->is_post_type_archive = false;
-
-        return $posts;
     }
 
     /**
-     * Generate the post object dynamically
+     * Generate the wp post object dynamically
      *
-     * @return stdClass a WP_Post simulation
+     * @return \WP_Post
      */
-    private function createPostObject(): stdClass
+    private function createWpPostObject(): \WP_Post
     {
         $post = new \stdClass();
         $post->ID = 0;
@@ -165,14 +179,14 @@ class VirtualPage
         $post->modified_gmt = $post->post_date_gmt;
         $post->post_content_filtered = '';
         $post->post_parent = 0;
-        $post->guid = get_home_url(1, '/' . $this->pageSlug);
+        $post->guid = get_home_url(null, '/' . $this->pageSlug);
         $post->menu_order = 0;
         $post->post_type = 'page';
         $post->post_mime_type = '';
         $post->comment_count = 0;
         $post->filter = 'raw';
 
-        return $post;
+        return new \WP_Post($post);
     }
 
     /**

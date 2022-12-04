@@ -13,4 +13,7 @@ if (! defined('PHPUNIT_COMPOSER_INSTALL')) {
 }
 
 require_once $vendor . 'autoload.php';
+
+WP_Mock::bootstrap();
+
 unset($vendor);
