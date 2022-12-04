@@ -16,12 +16,22 @@ abstract class Collection implements ArrayAccess, Countable, IteratorAggregate
     protected $items;
     protected $position;
 
+    /**
+     * Sets up object items
+     *
+     * @return self
+     */
     public function __construct(array $items = [])
     {
         $this->position = 0;
         $this->items = $items;
     }
 
+    /**
+     * Check if given offset exists
+     *
+     * @return bool
+     */
     public function offsetExists($offset): bool
     {
         if (is_integer($offset) || is_string($offset)) {
@@ -31,11 +41,21 @@ abstract class Collection implements ArrayAccess, Countable, IteratorAggregate
         return false;
     }
 
-    public function offsetGet($offset)
+    /**
+     * Retrieve the item of a given offset
+     *
+     * @return \mixed
+     */
+    public function offsetGet($offset): \mixed
     {
         return $this->items[$offset];
     }
 
+    /**
+     * Assign a value to an offset
+     *
+     * @return void
+     */
     public function offsetSet($offset, $value): void
     {
         if (is_null($offset)) {
@@ -46,16 +66,31 @@ abstract class Collection implements ArrayAccess, Countable, IteratorAggregate
         $this->items[$offset] = $value;
     }
 
+    /**
+     * Remove the given offset from the collection
+     *
+     * @return void
+     */
     public function offsetUnset($offset): void
     {
         unset($this->items[$offset]);
     }
 
+    /**
+     * Get collection items quantity
+     *
+     * @return void
+     */
     public function count(): int
     {
         return count($this->items);
     }
 
+    /**
+     * Return an iterator
+     *
+     * @return ArrayIterator
+     */
     public function getIterator(): ArrayIterator
     {
         return new ArrayIterator($this->items);

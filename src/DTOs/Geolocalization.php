@@ -11,12 +11,25 @@ final class Geolocalization
     private string $lat;
     private string $lng;
 
+    /**
+     * Sets up object properties
+     *
+     * @param string $lat
+     * @param string $lng
+     *
+     * @return self
+     */
     public function __construct(string $lat, string $lng)
     {
         $this->changeLat($lat)
             ->changeLng($lng);
     }
 
+    /**
+     * Convert object properties to array
+     *
+     * @return array
+     */
     public function toArray(): array
     {
         return [
@@ -27,6 +40,8 @@ final class Geolocalization
 
     /**
      * Get the value of lat
+     *
+     * @return string
      */
     public function lat(): string
     {
@@ -35,6 +50,8 @@ final class Geolocalization
 
     /**
      * Set the value of lat
+     *
+     * @return self
      */
     public function changeLat(string $lat): self
     {
@@ -45,6 +62,8 @@ final class Geolocalization
 
     /**
      * Get the value of lng
+     *
+     * @return string
      */
     public function lng(): string
     {
@@ -53,6 +72,8 @@ final class Geolocalization
 
     /**
      * Set the value of lng
+     *
+     * @return self
      */
     public function changeLng(string $lng): self
     {

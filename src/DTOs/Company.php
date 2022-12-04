@@ -11,12 +11,25 @@ final class Company
     private string $name;
     private string $catchPhrase;
 
+    /**
+     * Sets up object properties
+     *
+     * @param string $name
+     * @param string $catchPhrase
+     *
+     * @return self
+     */
     public function __construct(string $name, string $catchPhrase)
     {
         $this->changeName($name)
             ->changeCatchPhrase($catchPhrase);
     }
 
+    /**
+     * Convert object properties to array
+     *
+     * @return array
+     */
     public function toArray(): array
     {
         return [
@@ -27,6 +40,8 @@ final class Company
 
     /**
      * Get the value of name
+     *
+     * @return string
      */
     public function name(): string
     {
@@ -35,6 +50,8 @@ final class Company
 
     /**
      * Set the value of name
+     *
+     * @return self
      */
     public function changeName(string $name): self
     {
@@ -45,6 +62,8 @@ final class Company
 
     /**
      * Get the value of catchPhrase
+     *
+     * @return string
      */
     public function catchPhrase(): string
     {
@@ -53,6 +72,8 @@ final class Company
 
     /**
      * Set the value of catchPhrase
+     *
+     * @return self
      */
     public function changeCatchPhrase(string $catchPhrase): self
     {

@@ -17,6 +17,20 @@ final class User
     private string $website;
     private Company $company;
 
+    /**
+     * Sets up object properties
+     *
+     * @param int $id
+     * @param string $name
+     * @param string $username
+     * @param string $email
+     * @param Address $address
+     * @param string $phone
+     * @param string $website
+     * @param Company $company
+     *
+     * @return self
+     */
     public function __construct(
         int $id,
         string $name,
@@ -38,6 +52,11 @@ final class User
             ->changeCompany($company);
     }
 
+    /**
+     * Convert object properties to array
+     *
+     * @return array
+     */
     public function toArray(): array
     {
         return [
@@ -54,6 +73,8 @@ final class User
 
     /**
      * Get the value of id
+     *
+     * @return int
      */
     public function id(): int
     {
@@ -62,6 +83,8 @@ final class User
 
     /**
      * Set the value of id
+     *
+     * @return self
      */
     public function changeId(int $id): self
     {
@@ -72,6 +95,8 @@ final class User
 
     /**
      * Get the value of name
+     *
+     * @return string
      */
     public function name(): string
     {
@@ -80,6 +105,8 @@ final class User
 
     /**
      * Set the value of name
+     *
+     * @return self
      */
     public function changeName(string $name): self
     {
@@ -90,6 +117,8 @@ final class User
 
     /**
      * Get the value of username
+     *
+     * @return string
      */
     public function username(): string
     {
@@ -98,6 +127,8 @@ final class User
 
     /**
      * Set the value of username
+     *
+     * @return self
      */
     public function changeUsername(string $username): self
     {
@@ -108,6 +139,8 @@ final class User
 
     /**
      * Get the value of email
+     *
+     * @return string
      */
     public function email(): string
     {
@@ -116,6 +149,8 @@ final class User
 
     /**
      * Set the value of email
+     *
+     * @return self
      */
     public function changeEmail(string $email): self
     {
@@ -126,6 +161,8 @@ final class User
 
     /**
      * Get the value of address
+     *
+     * @return Address
      */
     public function address(): Address
     {
@@ -134,6 +171,8 @@ final class User
 
     /**
      * Set the value of address
+     *
+     * @return self
      */
     public function changeAddress(Address $address): self
     {
@@ -144,6 +183,8 @@ final class User
 
     /**
      * Get the value of phone
+     *
+     * @return string
      */
     public function phone(): string
     {
@@ -152,6 +193,8 @@ final class User
 
     /**
      * Set the value of phone
+     *
+     * @return self
      */
     public function changePhone(string $phone): self
     {
@@ -162,6 +205,8 @@ final class User
 
     /**
      * Get the value of website
+     *
+     * @return string
      */
     public function website(): string
     {
@@ -170,6 +215,8 @@ final class User
 
     /**
      * Set the value of website
+     *
+     * @return self
      */
     public function changeWebsite(string $website): self
     {
@@ -180,6 +227,8 @@ final class User
 
     /**
      * Get the value of company
+     *
+     * @return Company
      */
     public function company(): Company
     {
@@ -188,6 +237,8 @@ final class User
 
     /**
      * Set the value of company
+     *
+     * @return self
      */
     public function changeCompany(Company $company): self
     {

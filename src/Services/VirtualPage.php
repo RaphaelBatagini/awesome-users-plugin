@@ -6,8 +6,6 @@ declare(strict_types=1);
 
 namespace RaphaelBatagini\AwesomeUsersPlugin\Services;
 
-use stdClass;
-
 class VirtualPage
 {
     private string $pageSlug;

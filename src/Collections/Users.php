@@ -10,11 +10,21 @@ use RaphaelBatagini\AwesomeUsersPlugin\DTOs\User;
 
 class Users extends Collection
 {
+    /**
+     * Sets up object items
+     *
+     * @return self
+     */
     public function __construct(array $items = [])
     {
         parent::__construct($items);
     }
 
+    /**
+     * Convert collection to array
+     *
+     * @return array
+     */
     public function toArray(): array
     {
         $iterator = parent::getIterator();

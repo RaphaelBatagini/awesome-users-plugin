@@ -16,6 +16,17 @@ final class Address implements IDto
     private string $zipcode;
     private Geolocalization $geo;
 
+    /**
+     * Sets up object properties
+     *
+     * @param string $street
+     * @param string $suite
+     * @param string $city
+     * @param string $zipcode
+     * @param Geolocalization $geo
+     *
+     * @return self
+     */
     public function __construct(string $street, string $suite, string $city, string $zipcode, Geolocalization $geo)
     {
         $this->changeStreet($street)
@@ -25,6 +36,11 @@ final class Address implements IDto
             ->changeGeo($geo);
     }
 
+    /**
+     * Convert object properties to array
+     *
+     * @return array
+     */
     public function toArray(): array
     {
         return [
@@ -38,6 +54,8 @@ final class Address implements IDto
 
     /**
      * Get the value of street
+     *
+     * @return string
      */
     public function street(): string
     {
@@ -45,7 +63,9 @@ final class Address implements IDto
     }
 
     /**
-     * Set the value of street
+     * Change the value of street
+     *
+     * @return self
      */
     public function changeStreet(string $street): self
     {
@@ -56,6 +76,8 @@ final class Address implements IDto
 
     /**
      * Get the value of suite
+     *
+     * @return string
      */
     public function suite(): string
     {
@@ -64,6 +86,8 @@ final class Address implements IDto
 
     /**
      * Set the value of suite
+     *
+     * @return self
      */
     public function changeSuite(string $suite): self
     {
@@ -74,6 +98,8 @@ final class Address implements IDto
 
     /**
      * Get the value of city
+     *
+     * @return string
      */
     public function city(): string
     {
@@ -82,6 +108,8 @@ final class Address implements IDto
 
     /**
      * Set the value of city
+     *
+     * @return self
      */
     public function changeCity(string $city): self
     {
@@ -92,6 +120,8 @@ final class Address implements IDto
 
     /**
      * Get the value of zipcode
+     *
+     * @return string
      */
     public function zipcode(): string
     {
@@ -100,6 +130,8 @@ final class Address implements IDto
 
     /**
      * Set the value of zipcode
+     *
+     * @return self
      */
     public function changeZipcode(string $zipcode): self
     {
@@ -110,6 +142,8 @@ final class Address implements IDto
 
     /**
      * Get the value of geo
+     *
+     * @return Geolocalization
      */
     public function geo(): Geolocalization
     {
@@ -118,6 +152,8 @@ final class Address implements IDto
 
     /**
      * Set the value of geo
+     *
+     * @return self
      */
     public function changeGeo(Geolocalization $geo): self
     {

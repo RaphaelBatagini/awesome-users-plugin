@@ -12,13 +12,27 @@ use WP_REST_Request;
 
 final class Users implements IApi
 {
-    private $service;
+    /**
+     * Service to be used to access users data
+     * @var IUserService
+     */
+    private IUserService $service;
 
+    /**
+     * Sets up object service
+     *
+     * @return self
+     */
     public function __construct(IUserService $service)
     {
         $this->service = $service;
     }
 
+    /**
+     * Handler for the users list request
+     *
+     * @return array
+     */
     public function handleList(): array
     {
         return $this->service
@@ -26,6 +40,11 @@ final class Users implements IApi
             ->toArray();
     }
 
+    /**
+     * Handler for the users details request
+     *
+     * @return array
+     */
     public function handleDetails(WP_REST_Request $request): array
     {
         return $this->service
@@ -33,12 +52,22 @@ final class Users implements IApi
             ->toArray();
     }
 
+    /**
+     * Register users endpoints in the WordPress API
+     *
+     * @return void
+     */
     public function registerEndpoints(): void
     {
         add_action('rest_api_init', [$this, 'registerListEndpoint']);
         add_action('rest_api_init', [$this, 'registerDetailsEndpoint']);
     }
 
+    /**
+     * Register users list endpoint in the WordPress API
+     *
+     * @return void
+     */
     public function registerListEndpoint(): void
     {
         register_rest_route('awesome-users/v1', '/list', [
@@ -47,6 +76,11 @@ final class Users implements IApi
         ]);
     }
 
+    /**
+     * Register users details endpoint in the WordPress API
+     *
+     * @return void
+     */
     public function registerDetailsEndpoint(): void
     {
         register_rest_route('awesome-users/v1', '/details/(?P<id>\d+)', [

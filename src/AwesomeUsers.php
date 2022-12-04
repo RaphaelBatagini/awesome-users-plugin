@@ -21,6 +21,11 @@ final class AwesomeUsers
     {
     }
 
+    /**
+     * Retrieves a class instance
+     *
+     * @return self
+     */
     public static function instance(): self
     {
         if (empty(self::$instance)) {
@@ -30,19 +35,36 @@ final class AwesomeUsers
         return self::$instance;
     }
 
-    public function init()
+    /**
+     * Initialize the entire plugin processes
+     *
+     * @return void
+     */
+    public function init(): void
     {
         $this->initUsersApi();
         $this->createUsersPage();
     }
 
+    /**
+     * Initialize users API defining a user service and registering its endpoints
+     *
+     * @return void
+     */
     private function initUsersApi(): void
     {
-        $usersService = new JsonPlaceholderUsers(new WpHttpClient(new \WP_Http()));
+        $usersService = new JsonPlaceholderUsers(
+            new WpHttpClient(new \WP_Http())
+        );
         $usersApi = new Users($usersService);
         $usersApi->registerEndpoints();
     }
 
+    /**
+     * Create the front-end page
+     *
+     * @return void
+     */
     private function createUsersPage(): void
     {
         add_action('wp_enqueue_scripts', static function () {

@@ -23,10 +23,10 @@ class UsersTest extends AwesomeUsersTestCase
     {
         $serviceMock = Mockery::mock(JsonPlaceholderUsers::class)->makePartial();
         $sut = new Users($serviceMock);
-        
+
         WP_Mock::expectActionAdded('rest_api_init', [$sut, 'registerListEndpoint'], 10, 1);
         WP_Mock::expectActionAdded('rest_api_init', [$sut, 'registerDetailsEndpoint'], 10, 1);
-        
+
         $sut->registerEndpoints();
     }
 
@@ -75,7 +75,7 @@ class UsersTest extends AwesomeUsersTestCase
     /**
      * @dataProvider userProvider
      */
-    public function testHandleList($user)
+    public function testHandleList(array $user)
     {
         $httpClientMock = Mockery::mock(WpHttpClient::class)
             ->shouldReceive('get')
@@ -84,16 +84,16 @@ class UsersTest extends AwesomeUsersTestCase
 
         $service = new JsonPlaceholderUsers($httpClientMock);
         $sut = new Users($service);
-        
+
         $result = $sut->handleList();
-        
+
         $this->assertEquals([$user], $result);
     }
 
     /**
      * @dataProvider userProvider
      */
-    public function testHandleDetails($user)
+    public function testHandleDetails(array $user)
     {
         $httpClientMock = Mockery::mock(WpHttpClient::class)
             ->shouldReceive('get')
@@ -106,9 +106,9 @@ class UsersTest extends AwesomeUsersTestCase
         $requestMock = $this->getMockBuilder('ArrayAccess')
             ->setMockClassName('WP_REST_Request')
             ->getMock();
-        
+
         $result = $sut->handleDetails($requestMock);
-        
+
         $this->assertEquals($user, $result);
     }
 
