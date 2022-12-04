@@ -69,7 +69,7 @@ class VirtualPage
         array_push($wpPosts, $wpPost);
 
         wp_cache_add($wpPost->ID, $wpPost, 'posts');
-        
+
         $this->insertWpPostInWpQuery($wpPost, $wpPosts, $wpQuery);
 
         return $wpPosts;
@@ -103,7 +103,7 @@ class VirtualPage
             return '';
         }
 
-        return esc_url_raw(stripslashes($_SERVER['REQUEST_URI']));
+        return esc_url_raw(wp_unslash($_SERVER['REQUEST_URI']));
     }
 
     /**

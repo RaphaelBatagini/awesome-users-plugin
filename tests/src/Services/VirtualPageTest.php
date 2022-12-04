@@ -1,13 +1,14 @@
 <?php
 
 // -*- coding: utf-8 -*-
+// phpcs:disable WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+// phpcs:disable WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 declare(strict_types=1);
 
 namespace RaphaelBatagini\AwesomeUsersPlugin\Tests\Services;
 
 use Mockery;
-use RaphaelBatagini\AwesomeUsersPlugin\AwesomeUsers;
 use RaphaelBatagini\AwesomeUsersPlugin\Services\VirtualPage;
 use RaphaelBatagini\AwesomeUsersPlugin\Tests\AwesomeUsersTestCase;
 use WP_Mock;
@@ -23,7 +24,7 @@ class VirtualPageTest extends AwesomeUsersTestCase
         );
 
         WP_Mock::expectActionAdded('init', [$sut, 'registerFilters'], 10, 1);
-        
+
         $sut->init();
     }
 
@@ -55,7 +56,7 @@ class VirtualPageTest extends AwesomeUsersTestCase
             'args' => ['permalink_structure'],
             'return' => true,
         ]);
-        
+
         $wpQueryMock = Mockery::mock('WP_Query');
         $response = $sut->createPage([], $wpQueryMock);
 
@@ -65,8 +66,11 @@ class VirtualPageTest extends AwesomeUsersTestCase
     public function testCreatePageShouldntProceedWithPageCreationIfPostTypeIsNotEmpty(): void
     {
         $pageSlug = self::$faker->slug();
-        
-        $oldRequestUri = $_SERVER['REQUEST_URI'];
+
+        $oldRequestUri = !empty($_SERVER['REQUEST_URI'])
+            ? $_SERVER['REQUEST_URI']
+            : '';
+
         $_SERVER['REQUEST_URI'] = $pageSlug;
 
         $sut = new VirtualPage(
@@ -81,6 +85,11 @@ class VirtualPageTest extends AwesomeUsersTestCase
             'return' => true,
         ]);
 
+        WP_Mock::userFunction('wp_unslash', [
+            'times' => 1,
+            'return' => $_SERVER['REQUEST_URI'],
+        ]);
+
         $wpQueryMock = Mockery::mock('WP_Query');
         $wpQueryMock->query = ['post_type' => self::$faker->slug()];
         $response = $sut->createPage([], $wpQueryMock);
@@ -92,7 +101,7 @@ class VirtualPageTest extends AwesomeUsersTestCase
 
     public function testCreatePageShouldntProceedWithPageCreation(): void
     {
-        $bkpServerUri = $_SERVER['REQUEST_URI'];
+        $oldRequestUri = !empty($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
         $pageSlug = self::$faker->slug();
         $_SERVER['REQUEST_URI'] = '/' . $pageSlug . '/';
 
@@ -131,6 +140,11 @@ class VirtualPageTest extends AwesomeUsersTestCase
             'return' => null,
         ]);
 
+        WP_Mock::userFunction('wp_unslash', [
+            'times' => 1,
+            'return' => $_SERVER['REQUEST_URI'],
+        ]);
+
         $wpQueryMock = Mockery::mock('WP_Query')->makePartial();
         Mockery::mock('WP_Post')->makePartial();
 
@@ -139,6 +153,6 @@ class VirtualPageTest extends AwesomeUsersTestCase
         $this->assertIsArray($response);
         $this->assertInstanceOf('WP_Post', array_pop($response));
 
-        $_SERVER['REQUEST_URI'] = $bkpServerUri;
+        $_SERVER['REQUEST_URI'] = $oldRequestUri;
     }
 }
