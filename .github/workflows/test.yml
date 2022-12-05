@@ -27,10 +27,14 @@ jobs:
         with:
           php_version: '7.4'
 
-      # - name: Run Tests
-      #   run: vendor/bin/phpunit -v
+      - name: Run Tests
+        with:
+          php_version: '7.4'
+        run: vendor/bin/phpunit -v
 
       - name: PHP Version
+        with:
+          php_version: '7.4'
         run: php -v
 
       - name: Run Code Standards Check
