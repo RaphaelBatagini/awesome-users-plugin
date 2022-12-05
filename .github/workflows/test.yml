@@ -19,12 +19,12 @@ jobs:
           path: /tmp/composer-cache
           key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
 
-      - uses: php-actions/composer@v6
-        name: Install Composer dependencies
+      - name: Install Composer dependencies
+        uses: php-actions/composer@v6
         with:
           php_version: '7.4'
 
-        name: Run Tests
+      - name: Run Tests
         with:
           php_version: '7.4'
         run: vendor/bin/phpunit
