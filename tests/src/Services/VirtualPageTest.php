@@ -141,7 +141,11 @@ class VirtualPageTest extends AwesomeUsersTestCase
         ]);
 
         $wpQueryMock = Mockery::mock('WP_Query')->makePartial();
-        Mockery::mock('WP_Post')->makePartial();
+        Mockery::mock('WP_Post')
+            ->shouldReceive('ID')
+            ->andReturn(1)
+            ->getMock()
+            ->makePartial();
 
         $response = $sut->createPage([], $wpQueryMock);
 
