@@ -13,6 +13,7 @@ use RaphaelBatagini\AwesomeUsersPlugin\Contracts\IHttpClient;
 use RaphaelBatagini\AwesomeUsersPlugin\DTOs\Address;
 use RaphaelBatagini\AwesomeUsersPlugin\DTOs\Company;
 use RaphaelBatagini\AwesomeUsersPlugin\DTOs\Geolocalization;
+use RaphaelBatagini\AwesomeUsersPlugin\Exceptions\UserNotFoundException;
 use RaphaelBatagini\AwesomeUsersPlugin\Utilities\CacheTool;
 
 class JsonPlaceholderUsers implements IUserService
@@ -79,6 +80,11 @@ class JsonPlaceholderUsers implements IUserService
                 return $this->httpClient->get("{$this->sourceUrl}/{$userId}");
             }
         );
+
+        if (empty($apiUser)) {
+            throw new UserNotFoundException($userId);
+        }
+
         return $this->generateUserDto($apiUser);
     }
 

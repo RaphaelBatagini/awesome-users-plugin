@@ -13,7 +13,7 @@ class JsonDecodeException extends \Exception
      *
      * @param int $jsonErrorCode
      *
-     * @return UserCollection
+     * @return self
      */
     public function __construct(int $jsonErrorCode)
     {

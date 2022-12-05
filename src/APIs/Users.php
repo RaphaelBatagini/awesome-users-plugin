@@ -35,9 +35,13 @@ final class Users implements IApi
      */
     public function handleList(): array
     {
-        return $this->service
-            ->list()
-            ->toArray();
+        try {
+            return $this->service
+                ->list()
+                ->toArray();
+        } catch (\Exception $exception) {
+            return [];
+        }
     }
 
     /**
@@ -47,9 +51,13 @@ final class Users implements IApi
      */
     public function handleDetails(WP_REST_Request $request): array
     {
-        return $this->service
-            ->detail(intval($request['id']))
-            ->toArray();
+        try {
+            return $this->service
+                ->detail(intval($request['id']))
+                ->toArray();
+        } catch (\Exception $exception) {
+            return [];
+        }
     }
 
     /**

@@ -10,6 +10,7 @@ namespace RaphaelBatagini\AwesomeUsersPlugin\Tests\Services;
 use RaphaelBatagini\AwesomeUsersPlugin\Services\JsonPlaceholderUsers;
 use RaphaelBatagini\AwesomeUsersPlugin\Collections\Users;
 use RaphaelBatagini\AwesomeUsersPlugin\DTOs\User;
+use RaphaelBatagini\AwesomeUsersPlugin\Exceptions\UserNotFoundException;
 use RaphaelBatagini\AwesomeUsersPlugin\Services\WpHttpClient;
 use RaphaelBatagini\AwesomeUsersPlugin\Tests\AwesomeUsersTestCase;
 use WP_Mock;
@@ -68,7 +69,7 @@ class JsonPlaceholderUsersTest extends AwesomeUsersTestCase
             ->willThrowException($exception);
 
         $usersService = new JsonPlaceholderUsers($stub);
-        $usersList = $usersService->list();
+        $usersService->list();
     }
 
     public function testDetailReturnsAnUserDto(): void
@@ -93,5 +94,17 @@ class JsonPlaceholderUsersTest extends AwesomeUsersTestCase
 
         $usersService = new JsonPlaceholderUsers($stub);
         $usersService->detail(1);
+    }
+
+    public function testDetailThrowsUserNotFoundException(): void
+    {
+        $stub = $this->createStub(WpHttpClient::class);
+        $stub->method('get')
+            ->willReturn([]);
+
+        $this->expectException(UserNotFoundException::class);
+
+        $usersService = new JsonPlaceholderUsers($stub);
+        $usersService->detail(self::$faker->randomNumber(5));
     }
 }
