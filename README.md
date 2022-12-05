@@ -89,4 +89,4 @@ The plugin license can be found [here](./LICENSE.md).
 - Increase unit tests coverage;
 - Add SASS and use it to style the plugin page;
 - Create an NPM dev script with hot reload support;
-- Change front-end build to support JSX files.
+- Change front-end build to support JSX extension and TypeScript.

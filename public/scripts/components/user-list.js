@@ -56,7 +56,7 @@ export default function UserList() {
       'table',
       null,
       (
-        !users 
+        !users || users.length === 0
         ? <>We didn't find any user</>
         : <>
           <tr>
@@ -84,12 +84,44 @@ export default function UserList() {
       'div',
       null,
       (
-        !userDetails
+        !userDetails || userDetails.length === 0
         ? <>User not found</>
         : (
           <>
             <a href='#' onClick={ () => { backToUserList() } }>Go back</a>
-            <h2>Showing data from: { userDetails.name }</h2>
+            <h3>Showing data for user: #{ userDetails.id }</h3>
+            <p>
+              <strong>Name</strong><br/>{ userDetails.name }
+            </p>
+            <p>
+              <strong>Username</strong><br/>{ userDetails.username }
+            </p>
+            <p>
+              <strong>E-mail</strong><br/>{ userDetails.email }
+            </p>
+            <p>
+              <strong>Address</strong><br/>
+              <ul>
+                <li>Street: { userDetails.address?.street }</li>
+                <li>Suite: { userDetails.address?.suite }</li>
+                <li>City: { userDetails.address?.city }</li>
+                <li>Zipcode: { userDetails.address?.zipcode }</li>
+                <li>Geo: { userDetails.address?.geo?.lat }, { userDetails.address?.geo?.lng }</li>
+              </ul>
+            </p>
+            <p>
+              <strong>Phone</strong><br/>{ userDetails.phone }
+            </p>
+            <p>
+              <strong>Website</strong><br/>{ userDetails.website }
+            </p>
+            <p>
+              <strong>Company</strong><br/>
+              <ul>
+                <li>Name: { userDetails.company?.name }</li>
+                <li>Catch Phrase: { userDetails.company?.catchPhrase }</li>
+              </ul>
+            </p>
           </>
         )
       )
