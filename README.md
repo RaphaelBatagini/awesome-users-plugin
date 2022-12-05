@@ -24,17 +24,18 @@
 * [Improvements to be done](#improvements-to-be-done)
 
 ## Technologies
-- PHP >= 7.4
-- Composer 2
-- PHPUnit 9.5
-- Mockery 1.5
-- WP_Mock 0.5
-- FakerPHP 1.2
-- React 17.0
-- ReactDOM 17.0
-- Webpack 5.75
-- Babel 7.20
-- WordPress Dependency Extration Webpack Plugin 4.5
+- PHP 7.4+ - At the moment the most recent version of PHP supported by WordPress;
+- WordPress 6+ - The latest version of WordPress which gives us support for some front-end resources described below;
+- Composer 2 - The latest version of Composer;
+- PHPUnit 9.5 - The latest version supported by PHP previous to version 8;
+- Mockery 1.5 - Mock classes out of the PHPUnit default scope;
+- WP_Mock 0.5 - Mock WordPress user functions;
+- FakerPHP 1.2 - Generate unit tests random data making tests results more reliable;
+- NodeJS 14.0+ - Dependency for the front-end resources listed below;
+- Webpack 5.75 - Manage front-end build process;
+- Babel 7.20 - Transpile React code to ES5;
+- React 17.0 - Javascript library used to consume the plugin APIs asynchronous. Has not been installed apart of WordPress as explained below;
+- WordPress Dependency Extration Webpack Plugin 4.5 - Webpack plugin to allow consuming WordPress front-end resources, like React and its components, importing then as modules in others Javascript files.
 ## Plugin usage
 ### API endpoints
 This plugin expose two API endpoints to deal with users. They are:
@@ -47,7 +48,7 @@ The plugin front-end page can be found at this URL:
 https://YOUR_WEBSITE.COM/my-awesome-users
 ```
 ### Cache
-The plugin makes use of <a href="https://developer.wordpress.org/reference/classes/wp_object_cache/" target="_blank">WP_Object_Cache</a> in its external http requests, so it's completely viable to work with persistent cache plugins and tools like Redis or Memcached if you want more performance.
+The plugin makes use of <a href="https://developer.wordpress.org/reference/classes/wp_object_cache/" target="_blank">WP_Object_Cache</a> when doing external http requests, so it's completely viable to work with persistent cache plugins and tools like Redis or Memcached if you want more performance.
 
 The cache can be easy applied to another functions just using the CacheTool utility like the example below:
 ```php
