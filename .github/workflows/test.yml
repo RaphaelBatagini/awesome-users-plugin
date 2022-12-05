@@ -1,0 +1,32 @@
+name: Test & Code Standards
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    timeout-minutes: 10
+  
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: /tmp/composer-cache
+          key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+
+      - name: Install Composer dependencies
+        uses: php-actions/composer@v6
+        with:
+          php_version: '7.4'
+      - run: composer install
+
+      - name: Run Tests
+        uses: php-actions/composer@v6
+        with:
+          php_version: '7.4'
+      - run: vendor/bin/phpunit
