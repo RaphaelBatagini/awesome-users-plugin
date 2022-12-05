@@ -28,14 +28,12 @@ jobs:
           php_version: '7.4'
 
       - name: Run Tests
+        uses: php-actions/phpunit@v3
         with:
+          configuration: './phpunit.xml.dist'
+          version: '9.5.26'
           php_version: '7.4'
         run: vendor/bin/phpunit -v
-
-      - name: PHP Version
-        with:
-          php_version: '7.4'
-        run: php -v
 
       - name: Run Code Standards Check
         run: vendor/bin/phpcs
