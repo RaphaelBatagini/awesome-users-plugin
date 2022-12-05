@@ -23,10 +23,9 @@ jobs:
         uses: php-actions/composer@v6
         with:
           php_version: '7.4'
-      - run: composer install
 
       - name: Run Tests
         uses: php-actions/composer@v6
         with:
           php_version: '7.4'
-      - run: vendor/bin/phpunit
+        run: vendor/bin/phpunit
