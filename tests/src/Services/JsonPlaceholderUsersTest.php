@@ -12,6 +12,7 @@ use RaphaelBatagini\AwesomeUsersPlugin\Collections\Users;
 use RaphaelBatagini\AwesomeUsersPlugin\DTOs\User;
 use RaphaelBatagini\AwesomeUsersPlugin\Services\WpHttpClient;
 use RaphaelBatagini\AwesomeUsersPlugin\Tests\AwesomeUsersTestCase;
+use WP_Mock;
 
 class JsonPlaceholderUsersTest extends AwesomeUsersTestCase
 {

@@ -22,6 +22,7 @@ class AwesomeUsersTestCase extends TestCase
     {
         parent::setUp();
         WP_Mock::setUp();
+        self::bypassCache();
     }
 
     protected function tearDown(): void
@@ -33,5 +34,18 @@ class AwesomeUsersTestCase extends TestCase
     public static function setUpBeforeClass(): void
     {
         self::$faker = Factory::create();
+    }
+
+    private static function bypassCache(): void
+    {
+        WP_Mock::userFunction('wp_cache_get', [
+            'times' => '0+',
+            'return' => false,
+        ]);
+
+        WP_Mock::userFunction('wp_cache_add', [
+            'times' => '0+',
+            'return' => true,
+        ]);
     }
 }

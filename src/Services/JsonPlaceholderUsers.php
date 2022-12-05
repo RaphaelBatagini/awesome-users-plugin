@@ -13,6 +13,7 @@ use RaphaelBatagini\AwesomeUsersPlugin\Contracts\IHttpClient;
 use RaphaelBatagini\AwesomeUsersPlugin\DTOs\Address;
 use RaphaelBatagini\AwesomeUsersPlugin\DTOs\Company;
 use RaphaelBatagini\AwesomeUsersPlugin\DTOs\Geolocalization;
+use RaphaelBatagini\AwesomeUsersPlugin\Utilities\CacheTool;
 
 class JsonPlaceholderUsers implements IUserService
 {
@@ -27,6 +28,9 @@ class JsonPlaceholderUsers implements IUserService
      * @var string
      */
     private string $sourceUrl;
+
+    private const AWESOME_USERS_JP_LIST_CACHE_KEY = 'awesome_users_jp_list_all';
+    private const AWESOME_USERS_JP_DETAILS_CACHE_KEY = 'awesome_users_jp_details';
 
     /**
      * @param IHttpClient $httpClient client responsible for the http requests
@@ -47,7 +51,12 @@ class JsonPlaceholderUsers implements IUserService
      */
     public function list(): UsersCollection
     {
-        $apiUsers = $this->httpClient->get($this->sourceUrl);
+        $apiUsers = CacheTool::execute(
+            self::AWESOME_USERS_JP_LIST_CACHE_KEY,
+            function (): array {
+                return $this->httpClient->get($this->sourceUrl);
+            }
+        );
 
         $users = array_map(function (array $apiUser): User {
             return $this->generateUserDto($apiUser);
@@ -64,7 +73,12 @@ class JsonPlaceholderUsers implements IUserService
      */
     public function detail(int $userId): User
     {
-        $apiUser = $this->httpClient->get("{$this->sourceUrl}/{$userId}");
+        $apiUser = CacheTool::execute(
+            self::AWESOME_USERS_JP_DETAILS_CACHE_KEY,
+            function () use ($userId): array {
+                return $this->httpClient->get("{$this->sourceUrl}/{$userId}");
+            }
+        );
         return $this->generateUserDto($apiUser);
     }
 

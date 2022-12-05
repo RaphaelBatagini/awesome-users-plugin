@@ -135,11 +135,6 @@ class VirtualPageTest extends AwesomeUsersTestCase
             'return' => self::$faker->url() . '/' . $pageSlug,
         ]);
 
-        WP_Mock::userFunction('wp_cache_add', [
-            'times' => 1,
-            'return' => null,
-        ]);
-
         WP_Mock::userFunction('wp_unslash', [
             'times' => 1,
             'return' => $_SERVER['REQUEST_URI'],
