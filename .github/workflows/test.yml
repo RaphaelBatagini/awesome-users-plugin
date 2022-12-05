@@ -28,4 +28,10 @@ jobs:
           php_version: '7.4'
 
       - name: Run Tests
-        run: vendor/bin/phpunit
+        run: vendor/bin/phpunit -v
+
+      - name: PHP Version
+        run: php -v
+
+      - name: Run Code Standards Check
+        run: vendor/bin/phpcs

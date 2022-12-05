@@ -99,7 +99,7 @@ class VirtualPageTest extends AwesomeUsersTestCase
         $_SERVER['REQUEST_URI'] = $oldRequestUri;
     }
 
-    public function testCreatePageShouldntProceedWithPageCreation(): void
+    public function testCreatePageShouldProceedWithPageCreation(): void
     {
         $oldRequestUri = !empty($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
         $pageSlug = self::$faker->slug();
