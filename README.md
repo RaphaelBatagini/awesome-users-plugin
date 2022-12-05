@@ -70,6 +70,8 @@ Use the command below to install NPM dependencies and generate front-end assets:
 ```sh
 $ npm run build
 ```
+### Download
+You can also download the plugin from the repository releases [here](https://github.com/RaphaelBatagini/awesome-users-plugin/releases).
 
 ## Interacting with plugin code
 
