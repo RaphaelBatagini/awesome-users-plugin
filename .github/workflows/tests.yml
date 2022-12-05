@@ -1,4 +1,4 @@
-name: Test & Code Standards
+name: Unit Tests & Code Standards
 on:
   pull_request:
     branches: [main]

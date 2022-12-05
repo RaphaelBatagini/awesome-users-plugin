@@ -2,7 +2,7 @@
 
 > A WordPress plugin to list external users into a virtual page.
 
- ![PHP version](https://img.shields.io/badge/php-7.4%2B-7a86b8)
+ ![Test status](https://github.com/RaphaelBatagini/awesome-users-plugin/actions/workflows/tests.yml/badge.svg?branch=main) ![PHP version](https://img.shields.io/badge/php-7.4%2B-7a86b8)
  ![WordPress version](https://img.shields.io/badge/WordPress-6%2B-117ac9)
  ![React version](https://img.shields.io/badge/React-17-61dafb)
  [![GPLv2 License](https://img.shields.io/badge/license-GPL--2.0-orange)](https://github.com/RaphaelBatagini/awesome-users-plugin/blob/main/LICENSE.md)
